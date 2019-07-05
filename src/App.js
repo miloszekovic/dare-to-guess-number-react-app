@@ -1,26 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Grid, Typography, Paper, Divider } from '@material-ui/core'
+
+class App extends React.Component {
+  render() {
+    return (
+      <Grid container style={{ height: '100vh' }} justify="center" alignItems="center">
+        <Grid item xs={3}>
+          <Paper style={{ padding: '50px' }} elevation={6}>
+            <Typography align="center" variant="h2" gutterBottom>Hot or Not</Typography>
+            <Divider style={{ margin: '20px 0' }} />
+          </Paper>
+        </Grid>
+      </Grid>
+    );
+  }
 }
 
 export default App;

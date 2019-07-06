@@ -1,1 +1,36 @@
-<h1>OK</h1>
+import React from "react";
+
+import { TextField, Button } from "@material-ui/core";
+
+const Form = ({ returnGuessToApp }) => {
+  // event za submitovanje forme
+  const onSubmit = event => {
+    event.preventDefault(); // ponistavamo refresh cele strane u browseru
+
+    // submitovanje
+    const guess = event.target.elements.guess.value;
+    // console.log(event.target.elements.guess.value)
+
+    returnGuessToApp(guess);
+  };
+
+  return (
+    <div>
+      <form style={{ marginTop: "20px" }} onSubmit={onSubmit}>
+        <TextField
+          style={{ paddingBottom: "20px" }}
+          fullWidth
+          type="number"
+          name="guess"
+          label="enter your guess"
+          required
+        />
+        <Button fullWidth variant="contained" color="primary" type="submit">
+          Guess
+        </Button>
+      </form>
+    </div>
+  );
+};
+
+export default Form;

@@ -1,34 +1,34 @@
-import React from "react";
+import React, { Component } from 'react';
 
-import { Grid, Typography, Paper, Divider } from "@material-ui/core";
+import { Grid, Typography, Paper, Divider, Button } from '@material-ui/core';
 
 import Form from "./components/Form";
 import Progress from "./components/Progress";
-import { generateRandomNumber } from "./util";
+import Info from "./components/Info";
+import { getInitialState, getFeedback } from "./util";
 
-class App extends React.Component {
-  state = {
-    generateNumber: generateRandomNumber(),
-    guess: undefined,
-    allGuesses: [],
-    attempt: 0
-  };
+class App extends Component {
+  state = getInitialState();
 
-  updateAppState = guess => {
-    //console.log(guess)
-    //console.log(generateRandomNumber())
+  resetGame = () => this.setState(getInitialState());
 
-    const absDiff = Math.abs(guess - this.state.generateNumber);
+  updateAppState = (guess) => {
+    const { actual } = this.state;
+
+    const absDiff = Math.abs(guess - actual);
+    const { feedbackMessage, feedbackColor } = getFeedback(absDiff);
 
     this.setState(prevState => ({
       guess,
-      allGuesses: [...prevState.allGuesses, { guess }],
-      attempt: prevState.attempt + 1
+      allGuesses: [...prevState.allGuesses, { guess, feedbackColor }],
+      attempt: prevState.attempt + 1,
+      feedbackMessage,
+      block: absDiff === 0,
     }));
-  };
+  }
 
   render() {
-    const { allGuesses, attempt } = this.state;
+    const { allGuesses, feedbackMessage, block, attempt, show } = this.state;
 
     const guessList = allGuesses.map((item, index) => (
       <li key={index}>
@@ -37,20 +37,18 @@ class App extends React.Component {
     ));
 
     return (
-      <Grid
-        container
-        style={{ height: "100vh" }}
-        justify="center"
-        alignItems="center"
-      >
+      <Grid style={{ height: '100vh' }} justify="center" alignItems="center" container>
         <Grid item xs={3}>
-          <Paper style={{ padding: "50px" }} elevation={6}>
-            <Typography align="center" variant="h2" gutterBottom>
-              Hot or Not
-            </Typography>
-            <Divider style={{ margin: "20px 0" }} />
-            <Form returnGuessToApp={guess => this.updateAppState(guess)} />
-            <Progress attempt={attempt} guessList={guessList} />
+          <Paper style={{ padding: '50px' }} elevation={6}>
+            <Typography align="center" variant="h3" gutterBottom>HOT or COLD</Typography>
+            <Divider style={{ margin: '20px 0' }} />
+            <div className={`${feedbackMessage[0].toLowerCase()}`}>
+              <h2>{feedbackMessage}</h2>
+            </div>
+            <Form block={block} returnGuessToApp={value => this.updateAppState(value)} />
+            <Progress feedbackMessage={feedbackMessage} attempt={attempt} guessList={guessList} />
+            <Button style={{ marginBottom: '15px' }} fullWidth variant="contained" color="secondary" onClick={this.resetGame}>Reset Game</Button>
+            <Info show={show} onClose={this.handleClose} />
           </Paper>
         </Grid>
       </Grid>

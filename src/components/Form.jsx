@@ -4,11 +4,12 @@ import { TextField, Button } from "@material-ui/core";
 
 const Form = ({ returnGuessToApp }) => {
   // event za submitovanje forme
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault(); // ponistavamo refresh cele strane u browseru
 
     // submitovanje
     const guess = event.target.elements.guess.value;
+    event.target.elements.guess.value = ''; // Clear input field after submit
     // console.log(event.target.elements.guess.value)
 
     returnGuessToApp(guess);
@@ -22,7 +23,8 @@ const Form = ({ returnGuessToApp }) => {
           fullWidth
           type="number"
           name="guess"
-          label="enter your guess"
+          label="enter your guess" 
+          inputProps={{ min: '0', max: '100', step: '1' }}
           required
         />
         <Button fullWidth variant="contained" color="primary" type="submit">

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { Grid, Typography, Paper, Divider, Button } from '@material-ui/core';
 
+import './App.css';
+
 import Form from "./components/Form";
 import Progress from "./components/Progress";
 import Info from "./components/Info";
@@ -37,9 +39,9 @@ class App extends Component {
     ));
 
     return (
-      <Grid style={{ height: '100vh' }} justify="center" alignItems="center" container>
+      <Grid style={{ height: '100vh', background: '#222' }} justify="center" alignItems="center" container>
         <Grid item xs={3}>
-          <Paper style={{ padding: '50px' }} elevation={6}>
+          <Paper style={{ padding: '50px', background: '#f2f2f2' }} elevation={6}>
             <Typography align="center" variant="h3" gutterBottom>HOT or COLD</Typography>
             <Divider style={{ margin: '20px 0' }} />
             <div className={`${feedbackMessage[0].toLowerCase()}`}>
@@ -47,7 +49,7 @@ class App extends Component {
             </div>
             <Form block={block} returnGuessToApp={value => this.updateAppState(value)} />
             <Progress feedbackMessage={feedbackMessage} attempt={attempt} guessList={guessList} />
-            <Button style={{ marginBottom: '15px' }} fullWidth variant="contained" color="secondary" onClick={this.resetGame}>Reset Game</Button>
+            <Button style={{ margin: '40px 0 20px' }} fullWidth variant="contained" color="secondary" onClick={this.resetGame}>Reset Game</Button>
             <Info show={show} onClose={this.handleClose} />
           </Paper>
         </Grid>

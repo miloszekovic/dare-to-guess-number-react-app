@@ -5,7 +5,7 @@ export const getInitialState = () => ({
   guess: undefined,
   allGuesses: [],
   attempt: 0,
-  feedbackMessage: 'Dare to guess...',
+  feedbackMessage: 'Guess the number',
   feedbackColor: '#fff',
   block: false,
 });

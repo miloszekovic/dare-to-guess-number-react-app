@@ -1,5 +1,7 @@
 Simple ReactJS based game: create-react-app, material-ui
 
+### `npm install`
+
 ### `npm start`
 
 ### `npm run build`
